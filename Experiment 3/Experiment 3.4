@@ -1,0 +1,8 @@
+SELECT b.bonus,e.name
+From Employee as  e
+Left Join Bonus as b
+on e.empId =b.empId
+where b.bonus<1000 or b.bonus is NULL;
+
+
+
