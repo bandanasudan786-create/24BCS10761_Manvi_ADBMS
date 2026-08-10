@@ -1,0 +1,3 @@
+/* Write a query to output the table 'Customer'. Limit your results to 3 rows. */
+Select *from Customer
+Limit 3;

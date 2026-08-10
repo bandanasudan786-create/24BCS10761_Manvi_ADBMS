@@ -1,0 +1,12 @@
+/* Write a query to output a join table of 'Customer' and 'Purchase' containing only the details of 3 customers who has the highest purchased amount. */
+With top_purchase AS(  
+ SELECT Purchase_id,Customer_id,Purchase_Amt
+ FROM Purchase
+ ORDER BY Purchase_Amt DESC
+ LIMIT 3
+  )
+   
+ SELECT *
+ FROM Customer
+ JOIN top_purchase
+ ON Customer.Customer_id = top_purchase.Customer_id;

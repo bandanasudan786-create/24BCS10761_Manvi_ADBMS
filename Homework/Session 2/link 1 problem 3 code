@@ -1,0 +1,5 @@
+-- Delete John Doe's details from the Customers table
+DELETE FROM Customers WHERE customer_name = 'John Doe';
+
+-- Check the changes in the Orders table (after ON DELETE CASCADE)
+SELECT * FROM Orders;
