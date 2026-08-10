@@ -1,0 +1,5 @@
+SELECT a.AppointmentID, p.Name AS Patient, d.Name AS Doctor, a.AppointmentDate
+FROM Appointments a
+INNER JOIN Patients p ON a.PatientID = p.PatientID
+INNER JOIN Doctors d ON a.DoctorID = d.DoctorID
+WHERE a.Status = 'Scheduled';
