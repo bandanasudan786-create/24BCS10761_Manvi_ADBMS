@@ -1,0 +1,36 @@
+WITH weekly_touches AS (
+    SELECT DISTINCT
+        contact_id,
+        DATE_TRUNC('week', event_date) AS week
+    FROM marketing_touches
+),
+
+previous_weeks AS (
+    SELECT
+        contact_id,
+        week,
+        LAG(week) OVER (
+            PARTITION BY contact_id
+            ORDER BY week
+        ) AS previous_week
+    FROM weekly_touches
+),
+
+three_weeks AS (
+    SELECT
+        contact_id
+    FROM previous_weeks
+    WHERE week - previous_week = INTERVAL '7 days'
+    GROUP BY contact_id
+    HAVING COUNT(*) >= 2
+)
+
+SELECT DISTINCT c.email
+FROM crm_contacts c
+JOIN three_weeks t
+    ON c.contact_id = t.contact_id
+WHERE c.contact_id IN (
+    SELECT contact_id
+    FROM marketing_touches
+    WHERE event_type = 'trial_request'
+);
