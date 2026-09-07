@@ -7,6 +7,8 @@ INSERT INTO KRG(emp_id,emp_name,salary) values(1,'A',20000);
 INSERT INTO KRG(emp_id,emp_name,salary) values(2,'B',40000);
 INSERT INTO KRG(emp_id,emp_name,salary) values(3,'C',60000);
 INSERT INTO KRG(emp_id,emp_name,salary) values(4,'D',65000);
+
+
 --simple view (updatable)
 create view krg2 AS 
   select emp_id,emp_name from krg
