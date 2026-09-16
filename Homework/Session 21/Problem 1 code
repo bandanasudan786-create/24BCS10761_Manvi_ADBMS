@@ -1,0 +1,23 @@
+
+/*
+    Enter your query here and follow these instructions:
+    1. Please append a semicolon ";" at the end of the query and enter your query in a single line to avoid error.
+    2. The AS keyword causes errors, so follow this convention: "Select t.Field From table1 t" instead of "select t.Field From table1 AS t"
+    3. Type your code immediately after comment. Don't leave any blank line.
+*/
+SELECT MIN(Start_Date), MAX(End_Date)
+FROM (
+    SELECT Start_Date, End_Date,
+           SUM(CASE
+                   WHEN Start_Date = Prev_End THEN 0
+                   ELSE 1
+               END) OVER (ORDER BY Start_Date) grp
+    FROM (
+        SELECT Start_Date, End_Date,
+               LAG(End_Date) OVER (ORDER BY Start_Date) Prev_End
+        FROM Projects
+    ) t
+) p
+GROUP BY grp
+ORDER BY DAYS(MAX(End_Date)) - DAYS(MIN(Start_Date)), MIN(Start_Date);
+
