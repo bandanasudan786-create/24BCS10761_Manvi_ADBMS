@@ -1,0 +1,33 @@
+
+
+CREATE TABLE employees (
+    employee_id NUMBER,
+    name VARCHAR2(50),
+    department_id NUMBER,
+    salary NUMBER
+);
+
+INSERT INTO employees VALUES (101, 'Rahul', 10, 30000);
+INSERT INTO employees VALUES (102, 'Priya', 20, 40000);
+INSERT INTO employees VALUES (103, 'Aman', 10, 50000);
+INSERT INTO employees VALUES (104, 'Neha', 30, 45000);
+INSERT INTO employees VALUES (105, 'Riya', 10, 35000);
+
+COMMIT;
+
+SELECT * FROM employees;
+
+BEGIN
+    UPDATE employees
+    SET salary = salary * 1.1
+    WHERE department_id = 10;
+
+    IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE(
+            SQL%ROWCOUNT || ' rows updated.'
+        );
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('No rows updated.');
+    END IF;
+END;
+/
